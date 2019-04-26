@@ -42,6 +42,10 @@ public class TestsStepsCollector extends CrmTest {
         cssDt.put("title", ".title");
         cssDt.put("form", ".form");
         cssDt.put("send-switcher", ".send-switcher");
+        cssDt.put("select-td", ".select-td");
+        cssDt.put("from-date", ".from-date");
+        cssDt.put("to-date", ".to-date");
+        cssDt.put("date-container", ".date-container");
 
         return new Object[][] {{cssDt}};
     }
@@ -110,5 +114,11 @@ public class TestsStepsCollector extends CrmTest {
     @Description(value = "Тест проверяет погашение задолженности")
     public void test11(Map<String, String> cssDt) throws InterruptedException {
         debtorEraseTest(cssDt);
+    }
+
+    @Test(dataProvider = "selectors", priority = 12)
+    @Description(value = "Валидация диапазона дат")
+    public void test12(Map<String, String> cssDt) throws InterruptedException {
+        dateAdminFieldValidateTest(cssDt);
     }
 }

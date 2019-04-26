@@ -7,6 +7,7 @@ import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ import java.util.*;
 public class CrmTest extends DriverSettings {
 
     @Step("Проверка формы регистрации")
-    public void registrationTest(Map <String, String> cssDt) {
+    public void registrationTest(Map<String, String> cssDt) {
         driver.findElement(By.cssSelector(cssDt.get("sign-up-switch"))).click();
 
         UserEntity newUser = users.get(0);
@@ -215,157 +216,183 @@ public class CrmTest extends DriverSettings {
             switch (i){
                 case (0):
                     //0: login lower than 4
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе логина", driver.findElement(By.cssSelector(cssDt.get("username")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе логина",
+                            driver.findElement(By.cssSelector(cssDt.get("username")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (1):
                     //1: login higher than 24
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе логина", driver.findElement(By.cssSelector(cssDt.get("username")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе логина",
+                            driver.findElement(By.cssSelector(cssDt.get("username")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (2):
                     //2: password lower than 6
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе пароля", driver.findElement(By.cssSelector(cssDt.get("password")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе пароля",
+                            driver.findElement(By.cssSelector(cssDt.get("password")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (3):
                     //3: password higher than 32
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе пароля", driver.findElement(By.cssSelector(cssDt.get("password")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе пароля",
+                            driver.findElement(By.cssSelector(cssDt.get("password")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (4):
                     //4: post lower than 5
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе почты", driver.findElement(By.cssSelector(cssDt.get("email")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе почты",
+                            driver.findElement(By.cssSelector(cssDt.get("email")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (5):
                     //5: post higher than 50
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе почты", driver.findElement(By.cssSelector(cssDt.get("email")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе почты",
+                            driver.findElement(By.cssSelector(cssDt.get("email")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (6):
                     //6: post doesn't contain "@"
-                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '@'", driver.findElement(By.cssSelector(cssDt.get("email")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '@'",
+                            driver.findElement(By.cssSelector(cssDt.get("email")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (7):
                     //7: post doesn't contain "."
-                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '.'", driver.findElement(By.cssSelector(cssDt.get("email")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '.'",
+                            driver.findElement(By.cssSelector(cssDt.get("email")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (8):
                     //8: post doesn't contain both
-                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '@' и '.'", driver.findElement(By.cssSelector(cssDt.get("email")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '@' и '.'",
+                            driver.findElement(By.cssSelector(cssDt.get("email")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (9):
                     //9: lastName lower than 3
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе фамилии", driver.findElement(By.cssSelector(cssDt.get("lastName")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе фамилии",
+                            driver.findElement(By.cssSelector(cssDt.get("lastName")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (10):
                     //10: lastName higher than 50
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе фамилии", driver.findElement(By.cssSelector(cssDt.get("lastName")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе фамилии",
+                            driver.findElement(By.cssSelector(cssDt.get("lastName")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (11):
                     //11: firstName lower than 3
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе имени", driver.findElement(By.cssSelector(cssDt.get("firstName")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе имени",
+                            driver.findElement(By.cssSelector(cssDt.get("firstName")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (12):
                     //12 : firstName higher than 50
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе имени", driver.findElement(By.cssSelector(cssDt.get("firstName")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе имени",
+                            driver.findElement(By.cssSelector(cssDt.get("firstName")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (13):
                     //13: middleName lower than 3
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе отчества", driver.findElement(By.cssSelector(cssDt.get("middleName")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе отчества",
+                            driver.findElement(By.cssSelector(cssDt.get("middleName")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (14):
                     //14: middleName higher than 50
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе отчества", driver.findElement(By.cssSelector(cssDt.get("middleName")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе отчества",
+                            driver.findElement(By.cssSelector(cssDt.get("middleName")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (15):
                     //15: apartmentNumber contain "+"
-                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '+'", driver.findElement(By.cssSelector(cssDt.get("apartment")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '+'",
+                            driver.findElement(By.cssSelector(cssDt.get("apartment")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (16):
                     //16: apartmentNumber contain "-"
-                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '-'", driver.findElement(By.cssSelector(cssDt.get("apartment")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '-'",
+                            driver.findElement(By.cssSelector(cssDt.get("apartment")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (17):
                     //17: apartmentNumber contain both
-                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '+' и '-'", driver.findElement(By.cssSelector(cssDt.get("apartment")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в проверке '+' и '-'",
+                            driver.findElement(By.cssSelector(cssDt.get("apartment")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (18):
                     //18: try to set letters in user apartmentNumber
-                    Assert.assertTrue("Тест не прошёл, буквы в поле не проходят валидацию", driver.findElement(By.cssSelector(cssDt.get("apartment")))
+                    Assert.assertTrue("Тест не прошёл, буквы в поле не проходят валидацию",
+                            driver.findElement(By.cssSelector(cssDt.get("apartment")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (19):
                     //19: phoneNumber lower than 6
-                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе номера телефона", driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в нижней границе номера телефона",
+                            driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (20):
                     //20: phoneNumber higher than 12
-                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе номера телефона", driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
+                    Assert.assertTrue("Тест не прошёл, ошибка в верхней границе номера телефона",
+                            driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (21):
                     //21: phoneNumber contain "+"
-                    Assert.assertTrue("Тест не прошёл,  ошибка в проверке '+'", driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
+                    Assert.assertTrue("Тест не прошёл,  ошибка в проверке '+'",
+                            driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (22):
                     //22: phoneNumber contain "-"
-                    Assert.assertTrue("Тест не прошёл,  ошибка в проверке '-'", driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
+                    Assert.assertTrue("Тест не прошёл,  ошибка в проверке '-'",
+                            driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (23):
                     //23: phoneNumber contain both
-                    Assert.assertTrue("Тест не прошёл,  ошибка в проверке '+' и '-'", driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
+                    Assert.assertTrue("Тест не прошёл,  ошибка в проверке '+' и '-'",
+                            driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (24):
                     //24: try to set letters in user phoneNumber
-                    Assert.assertTrue("Тест не прошёл, буквы в поле не проходят валидацию", driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
+                    Assert.assertTrue("Тест не прошёл, буквы в поле не проходят валидацию",
+                            driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
                 case (25):
                     //25: try to register user without filling fields
-                    Assert.assertTrue("Тест не прошёл, при всех пустых полях валидация проходит не для каждого", driver.findElement(By.cssSelector(cssDt.get("username")))
+                    Assert.assertTrue("Тест не прошёл, при всех пустых полях валидация проходит не для каждого",
+                            driver.findElement(By.cssSelector(cssDt.get("username")))
                             .getCssValue("background-color").equals(wrongColor)
                     && driver.findElement(By.cssSelector(cssDt.get("password")))
                             .getCssValue("background-color").equals(wrongColor)
@@ -386,7 +413,8 @@ public class CrmTest extends DriverSettings {
                 case (26):
                     //26: try to register with another login
                     Thread.sleep(1000);
-                    Assert.assertTrue("Тест не прошёл, валидация уже имеющегося пользователя не проходит", driver.findElement(By.cssSelector(cssDt.get("username")))
+                    Assert.assertTrue("Тест не прошёл, валидация уже имеющегося пользователя не проходит",
+                            driver.findElement(By.cssSelector(cssDt.get("username")))
                             .getCssValue("background-color").equals(wrongColor));
                     Thread.sleep(1000);
                     break;
@@ -404,7 +432,7 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка формы входа")
-    public void signUpTest(Map <String, String> cssDt) {
+    public void signUpTest(Map<String, String> cssDt) {
         userSignIn(users.get(0), cssDt);
 
         String sendForm = driver.findElement(By.cssSelector(cssDt.get("hist-switcher"))).getText();
@@ -415,7 +443,7 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка валидации формы входа")
-    public void signUpValidationTest(Map <String, String> cssDt) throws InterruptedException {
+    public void signUpValidationTest(Map<String, String> cssDt) throws InterruptedException {
         String correctLogin = users.get(0).login;
         String correctPassword = users.get(0).password;
 
@@ -485,7 +513,7 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка отправки показаний")
-    public void inputMetersDataTest(Map <String, String> cssDt) throws InterruptedException{
+    public void inputMetersDataTest(Map<String, String> cssDt) throws InterruptedException{
         userSignIn(users.get(0), cssDt);
 
         driver.findElement(By.cssSelector(cssDt.get("hist-switcher"))).click();
@@ -519,7 +547,7 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка валидации формы отправки показаний")
-    public void inputMetersValidateTest(Map <String, String> cssDt) throws InterruptedException {
+    public void inputMetersValidateTest(Map<String, String> cssDt) throws InterruptedException {
         userSignIn(users.get(0), cssDt);
 
         driver.findElement(By.cssSelector(cssDt.get("hist-switcher"))).click();
@@ -756,7 +784,7 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка перехода по старницам")
-    public void pageSwapTest(Map <String, String> cssDt) throws InterruptedException {
+    public void pageSwapTest(Map<String, String> cssDt) throws InterruptedException {
         Assert.assertTrue("Тест не прошёл, форма входа не выводится", driver.findElement(By.cssSelector(cssDt.get("sign-in-form"))).isDisplayed());
         driver.findElement(By.cssSelector(cssDt.get("sign-up-switch"))).click();
 
@@ -782,7 +810,7 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка входа в профиль админа")
-    public void adminPageTest(Map <String, String> cssDt) {
+    public void adminPageTest(Map<String, String> cssDt) {
         userSignIn(users.get(1), cssDt);
 
         String debtSwitcher = driver.findElement(By.cssSelector(cssDt.get("debt-switcher"))).getText();
@@ -793,19 +821,10 @@ public class CrmTest extends DriverSettings {
     }
 
     @Step("Проверка обновлений данных в профиле админа")
-    public void adminUpdateDataTest (Map <String, String> cssDt) throws InterruptedException {
+    public void adminUpdateDataTest (Map<String, String> cssDt) throws InterruptedException {
         String electro;
         String hot;
         String cold;
-
-//        driver.findElement(By.cssSelector(cssDt.get("sign-in-form")))
-//                .findElement(By.cssSelector(cssDt.get("username")))
-//                .sendKeys(userName);
-//        driver.findElement(By.cssSelector(cssDt.get("sign-in-form")))
-//                .findElement(By.cssSelector(cssDt.get("password")))
-//                .sendKeys(userPassword);
-//
-//        driver.findElement(By.cssSelector(cssDt.get("sign-in-btn"))).click();
 
         userSignIn(users.get(0), cssDt);
 
@@ -839,15 +858,6 @@ public class CrmTest extends DriverSettings {
 
         driver.findElement(By.cssSelector(cssDt.get("exit-btn"))).click();
 
-//        driver.findElement(By.cssSelector(cssDt.get("sign-in-form")))
-//                .findElement(By.cssSelector(cssDt.get("username")))
-//                .sendKeys("admin");
-//        driver.findElement(By.cssSelector(cssDt.get("sign-in-form")))
-//                .findElement(By.cssSelector(cssDt.get("password")))
-//                .sendKeys("zxcvbn");
-//
-//        driver.findElement(By.cssSelector(cssDt.get("sign-in-btn"))).click();
-
         userSignIn(users.get(1), cssDt);
         Thread.sleep(3000);
 
@@ -861,27 +871,6 @@ public class CrmTest extends DriverSettings {
         }
 
         if (dataToString.contains(users.get(0).apartmentNumber)) {
-//            int flatNumberInd = dataToString.indexOf(users.get(0).apartmentNumber);
-//
-//            System.out.println(flatNumberInd);
-//
-//            String tableWithSameTime = "";
-//            int requiredInd = -1;
-//
-//            ArrayList<String> apartData = new ArrayList<String>();
-//            int count = flatNumberInd + 1;
-//            while (dataToString.get(count).indexOf(" ") > 0) {
-//                apartData.add(dataToString.get(count));
-//                String[] getData = dataToString.get(count).split("\\s");
-//                String time = getData[3] + " " + getData[4];
-//                System.out.println(count);
-//                if (time.equals(strSendTime)) {
-//                    requiredInd = count;
-//                    break;
-//                }
-//                count++;
-//            }
-
             int requiredInd = -1;
             for (int i = 0; i < dataToString.size(); i++) {
                 String[] getData = dataToString.get(i).split("\\s");
@@ -893,16 +882,6 @@ public class CrmTest extends DriverSettings {
                     }
                 }
             }
-
-//            String[] getData = apartData.get(apartData.size() - 1).split("\\s");
-//            String foundData = getData[0] + " " + getData[1] + " " + getData[2];
-//            String inputedData = electro + " " + cold + " " + hot;
-//
-//            System.out.println(foundData + "\n" + inputedData);
-//            System.out.println(getData[3] + " : " + getData[4]);
-
-//            System.out.println(dataToString.size() + " " + requiredInd);
-//            System.out.println(dataToString);
 
             if (requiredInd >= 0) {
                 String[] foundedRow = dataToString.get(requiredInd).split("\\s");
@@ -991,7 +970,8 @@ public class CrmTest extends DriverSettings {
         driver.findElement(By.cssSelector(cssDt.get("phoneNumber")))
                 .sendKeys(users.get(users.size() - 1).phoneNumber);
 
-        driver.findElement(By.cssSelector(cssDt.get("form"))).findElement(By.cssSelector(cssDt.get("sign-up-btn"))).click();
+        driver.findElement(By.cssSelector(cssDt.get("form")))
+                .findElement(By.cssSelector(cssDt.get("sign-up-btn"))).click();
         driver.findElement(By.cssSelector(cssDt.get("exit-btn"))).click();
 
         userSignIn(users.get(1), cssDt);
@@ -1053,6 +1033,192 @@ public class CrmTest extends DriverSettings {
         else {
             driver.findElement(By.cssSelector(cssDt.get("exit-btn"))).click();
             Assert.assertTrue("Тест не прошёл, должника нет в списках", false);
+        }
+    }
+
+    @Step("Проверка валидации даты у админа")
+    public void dateAdminFieldValidateTest(Map<String, String> cssDt) throws InterruptedException {
+        userSignIn(users.get(1), cssDt);
+        driver.findElement(By.cssSelector(cssDt.get("apart")))
+                .findElement(By.cssSelector(cssDt.get("select-td"))).click();
+
+        Select dropdown = new Select(driver.findElement(By.cssSelector(cssDt.get("apart")))
+                .findElement(By.cssSelector(cssDt.get("select-td"))));
+
+        dropdown.selectByVisibleText("Диапазон");
+
+        driver.findElement(By.cssSelector(cssDt.get("apart")))
+                .findElement(By.cssSelector(cssDt.get("select-td"))).click();
+
+        //wrongDateSet
+        ArrayList<String[]> wrongDates = new ArrayList<String[]>();
+
+        //0: первая дата больше предыдущей по году
+        wrongDates.add(new String[]{"01.01.2019", "01.01.2018"});
+
+        //1: первая дата больше предыдущей по месяцу
+        wrongDates.add(new String[]{"01.02.2018", "01.01.2018"});
+
+        //2: первая дата больше предыдущей по дню
+        wrongDates.add(new String[]{"02.01.2018", "01.01.2018"});
+
+        //3: у первой даты нет данных
+        wrongDates.add(new String[]{"дд.мм.гггг", "01.01.2019"});
+
+        //4: у второй даты нет данных
+        wrongDates.add(new String[] {"01.01.2019", "дд.мм.гггг"});
+
+        //5: обе даты не имемют данных
+        wrongDates.add(new String[]{"дд.мм.гггг", "дд.мм.гггг"});
+
+        //6, 7: выход за диапазоны года у первой даты
+        //6: меньше минимума
+        wrongDates.add(new String[]{"31.12.1999", "01.01.2019"});
+
+        //7: больше максимума
+        wrongDates.add(new String[]{"01.01.2031", "01.01.2019"});
+
+        //8, 9: выход за диапазоны года у второй даты
+        //8: меньше минимума
+        wrongDates.add(new String[]{"01.01.2019", "31.12.1999"});
+
+        //9: больше максимума
+        wrongDates.add(new String[]{"01.01.2019", "01.01.2031"});
+
+        String wrongColorLightPink = "rgba(255, 182, 193, 1)";
+        String minDate = "2000-01-01";
+        String maxDate = "2030-12-31";
+
+        System.out.println(driver.findElement(By.cssSelector(cssDt.get("apart")))
+                .findElement(By.cssSelector(cssDt.get("date-container")))
+                .findElement(By.cssSelector(cssDt.get("from-date"))).getAttribute("value"));
+
+        for (int i = 0; i < wrongDates.size(); i++) {
+
+            if (!wrongDates.get(i)[0].equals("дд.мм.гггг")) {
+                driver.findElement(By.cssSelector(cssDt.get("apart")))
+                        .findElement(By.cssSelector(cssDt.get("date-container")))
+                        .findElement(By.cssSelector(cssDt.get("from-date")))
+                        .sendKeys(wrongDates.get(i)[0]);
+            }
+            else {
+                driver.findElement(By.cssSelector(cssDt.get("apart")))
+                        .findElement(By.cssSelector(cssDt.get("date-container")))
+                        .findElement(By.cssSelector(cssDt.get("from-date")))
+                        .clear();
+            }
+
+            if (!wrongDates.get(i)[1].equals("дд.мм.гггг")) {
+                driver.findElement(By.cssSelector(cssDt.get("apart")))
+                        .findElement(By.cssSelector(cssDt.get("date-container")))
+                        .findElement(By.cssSelector(cssDt.get("to-date")))
+                        .sendKeys(wrongDates.get(i)[1]);
+            }
+            else {
+                driver.findElement(By.cssSelector(cssDt.get("apart")))
+                        .findElement(By.cssSelector(cssDt.get("date-container")))
+                        .findElement(By.cssSelector(cssDt.get("to-date")))
+                        .clear();
+            }
+
+            String getedColorFromFirst = driver.findElement(By.cssSelector(cssDt.get("apart")))
+                    .findElement(By.cssSelector(cssDt.get("date-container")))
+                    .findElement(By.cssSelector(cssDt.get("from-date")))
+                    .getCssValue("background-color");
+
+            String getedColorFromSecond = driver.findElement(By.cssSelector(cssDt.get("apart")))
+                    .findElement(By.cssSelector(cssDt.get("date-container")))
+                    .findElement(By.cssSelector(cssDt.get("to-date")))
+                    .getCssValue("background-color");
+
+            boolean isEqualByColor = getedColorFromFirst.equals(wrongColorLightPink)
+                    && getedColorFromSecond.equals(wrongColorLightPink);
+
+            String getedValueFromFirst = driver.findElement(By.cssSelector(cssDt.get("apart")))
+                    .findElement(By.cssSelector(cssDt.get("date-container")))
+                    .findElement(By.cssSelector(cssDt.get("from-date"))).getAttribute("value");
+
+            String getedValueFromSecond = driver.findElement(By.cssSelector(cssDt.get("apart")))
+                    .findElement(By.cssSelector(cssDt.get("date-container")))
+                    .findElement(By.cssSelector(cssDt.get("to-date"))).getAttribute("value");
+
+            switch (i) {
+                case (0):
+                    //0: первая дата больше предыдущей по году
+                    Assert.assertTrue("Тест не прошёл, ошибка в сраванении года", isEqualByColor);
+
+                    Thread.sleep(1000);
+                    break;
+
+                case (1):
+                    //1: первая дата больше предыдущей по месяцу
+                    Assert.assertTrue("Тест не прошёл, ошибка в сраванении года", isEqualByColor);
+
+                    Thread.sleep(1000);
+                    break;
+
+                case (2):
+                    //2: первая дата больше предыдущей по дню
+                    Assert.assertTrue("Тест не прошёл, ошибка в сраванении года", isEqualByColor);
+                    Thread.sleep(1000);
+                    break;
+
+                case (3):
+                    //3: у первой даты нет данных
+                    Assert.assertTrue("Тест не прошёл, ошибка в сраванении года", isEqualByColor);
+                    Thread.sleep(1000);
+                    break;
+
+                case (4):
+                    //4: у второй даты нет данных
+                    Assert.assertTrue("Тест не прошёл, ошибка в сраванении года", isEqualByColor);
+                    Thread.sleep(1000);
+                    break;
+
+                case (5):
+                    //5: обе даты не имемют данных
+                    Assert.assertTrue("Тест не прошёл, ошибка в сраванении года", isEqualByColor);
+                    Thread.sleep(1000);
+                    break;
+
+//                case (6):
+//                    //6: первая дата меньше нижней границы
+//                    Assert.assertTrue("Тест не прошёл, дата первого поля выходит за диапазон минимальной",
+//                            getedValueFromFirst.equals(minDate));
+//                    Thread.sleep(1000);
+//                    break;
+//
+//                case (7):
+//                    //7: первая дата выше верхней границы
+//                    Assert.assertTrue("Тест не прошёл, дата первого поля выходит за диапазон максимальной",
+//                            getedValueFromFirst.equals(maxDate));
+//                    Thread.sleep(1000);
+//                    break;
+//
+//                case (8):
+//                    //8: вторая дата меньше нижней границы
+//                    Assert.assertTrue("Тест не прошёл, дата второго поля выходит за диапазон минимальной",
+//                            getedValueFromSecond.equals(minDate));
+//                    Thread.sleep(1000);
+//                    break;
+//
+//                case (9):
+//                    //9: вторая дата выше верхней границы
+//                    Assert.assertTrue("Тест не прошёл, дата второго поля выходит за диапазон максимальной",
+//                            getedValueFromSecond.equals(maxDate));
+//                    Thread.sleep(1000);
+//                    break;
+            }
+
+            driver.findElement(By.cssSelector(cssDt.get("apart")))
+                    .findElement(By.cssSelector(cssDt.get("date-container")))
+                    .findElement(By.cssSelector(cssDt.get("from-date")))
+                    .clear();
+
+            driver.findElement(By.cssSelector(cssDt.get("apart")))
+                    .findElement(By.cssSelector(cssDt.get("date-container")))
+                    .findElement(By.cssSelector(cssDt.get("to-date")))
+                    .clear();
         }
     }
 }

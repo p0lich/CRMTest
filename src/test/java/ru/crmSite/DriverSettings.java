@@ -34,7 +34,12 @@ public class DriverSettings {
                 "88", "88001111111"));
 
         users.add(new UserEntity("admin", "zxcvbn",
-                "", "Админов", "Админ", "Админович", "0", ""));
+                "", "Админов", "Админ", "Админович",
+                "0", ""));
+
+        users.add(new UserEntity("nonUsableUser", "1111111", "nonuse@mail.ru",
+                "llll", "ffff", "mmmm",
+                "333", "8800800"));
 
         System.out.println("Test start");
     }
